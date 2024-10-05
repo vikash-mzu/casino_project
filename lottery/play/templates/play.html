@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    
+    <style>
+        /* Add your custom CSS styling here */
+        body {
+            background-color: pink;
+            font-family: Arial, sans-serif;
+        }
+        .game-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: powderblue;
+            border-radius: 80px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .result-message {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #28a745;
+        }
+        .result-message.bad-luck {
+            color: #dc3545;
+        }
+    </style>
+    
+    <title>Play Lottery</title>
+  </head>
+  
+  <body>
+  
+    <div class="container">
+      <div class="game-container text-center">
+        <h1 class="mb-4">WELCOME TO PLAY LOTTERY</h1>
+        <h2 class="mb-4">Try your luck and win prizes like Car, Bike, LED TV, and Cash in ₹!</h2>
+
+        <form method="POST" class="mb-5">
+          {% csrf_token %}
+          
+          <div class="mb-3">
+            <label for="ans" class="form-label">Do you want to play? (yes/no): </label>
+            <input type="text" name="ans" id="ans" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="num" class="form-label">Enter a number (1-5): </label>
+            <input type="number" name="num" id="num" class="form-control" min="1" max="5" required>
+          </div>
+          
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        <!-- Table for prizes -->
+        <table class="table table-bordered">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">First Prize</th>
+              <th scope="col">Second Prize</th>
+              <th scope="col">Third Prize</th>
+              <th scope="col">Fourth Prize</th>
+              <th scope="col">Fifth Prize</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Prize</th>
+              <td>Car</td>
+              <td>Bike</td>
+              <td>LED TV</td>
+              <td>Cash ₹1</td>
+              <td>A Toy</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Display result message dynamically -->
+        {% if message %}
+          <h2 class="mt-4 {% if 'Bad Luck' in message %}text-danger{% else %}text-success{% endif %}">
+            {{ message }}
+          </h2>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+  </body>
+</html>
